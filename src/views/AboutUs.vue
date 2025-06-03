@@ -188,10 +188,7 @@ const teamMembers = ref([
       <!-- Floating elements -->
       <div class="absolute top-1/4 right-10 w-4 h-4 bg-[#7AE2CF] rounded-full animate-bounce pointer-events-none" style="animation-delay: 1s"></div>
       <div class="absolute bottom-1/4 left-10 w-3 h-3 bg-blue-400 rounded-full animate-bounce pointer-events-none" style="animation-delay: 2s"></div>
-    </div>
-
-    <div id="Footer">
-      <Footer></Footer>
+    
     </div>
   </div>
 </template>
