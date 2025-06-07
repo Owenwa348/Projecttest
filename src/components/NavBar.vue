@@ -11,12 +11,16 @@
         </div>
 
         <!-- Navigation -->
-<div class="hidden md:flex absolute left-1/2 -translate-x-1/2 space-x-15 text-base font-medium">
-  <router-link to="/" style="color: white;" class="text-lg text-white hover:text-white hover:bg-[#7AE2CF] px-3 py-2 rounded-md transition">หน้าแรก</router-link>
-  <router-link to="/assessmentform" style="color: white;" class="text-lg text-white hover:text-white hover:bg-[#7AE2CF] px-3 py-2 rounded-md transition">แบบประเมิน</router-link>
-  <router-link to="/about" style="color: white;" class="text-lg text-white hover:text-white hover:bg-[#7AE2CF] px-3 py-2 rounded-md transition">เกี่ยวกับเรา</router-link>
-  <router-link to="/contact" style="color: white;" class="text-lg text-white hover:text-white hover:bg-[#7AE2CF] px-3 py-2 rounded-md transition">ติดต่อสอบถาม</router-link>
-</div>
+        <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 space-x-15 text-base font-medium">
+          <router-link to="/" style="color: white;"
+            class="text-lg text-white hover:text-white hover:bg-[#7AE2CF] px-3 py-2 rounded-md transition">หน้าแรก</router-link>
+          <router-link to="/assessmentform" style="color: white;"
+            class="text-lg text-white hover:text-white hover:bg-[#7AE2CF] px-3 py-2 rounded-md transition">แบบประเมิน</router-link>
+          <router-link to="/about" style="color: white;"
+            class="text-lg text-white hover:text-white hover:bg-[#7AE2CF] px-3 py-2 rounded-md transition">เกี่ยวกับเรา</router-link>
+          <router-link to="/contact" style="color: white;"
+            class="text-lg text-white hover:text-white hover:bg-[#7AE2CF] px-3 py-2 rounded-md transition">ติดต่อสอบถาม</router-link>
+        </div>
       </div>
     </div>
 
