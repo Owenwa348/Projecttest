@@ -58,28 +58,24 @@ const isOpen = ref(false);
           </button>
         </a>
         
-        <a href="#Contactus" class="group">
+        <router-link to="/contact" style="color: white;">
           <button
             style="background-color: #7ae2cf"
             class="relative text-[#000000] px-8 py-6 rounded-full text-xl font-semibold hover:bg-[#62CFC0] transition-all duration-300 shadow-2xl transform hover:scale-105 hover:shadow-[#7ae2cf]/25 overflow-hidden"
           >
+          
             
             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
             <span class="relative z-10 flex items-center">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                
               </svg>
-              ติดต่อเรา
+              ติดต่อสอบถาม
             </span>
           </button>
-        </a>
-      </div>
-
-      
-      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-          <div class="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
-        </div>
+        </router-link>
       </div>
     </div>
     

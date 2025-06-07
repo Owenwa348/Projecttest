@@ -3,6 +3,7 @@
 import NavBar from "./components/NavBar.vue";
 import Footer from "./components/Footer.vue";
 
+
 import { ref } from "vue";
 
 const isOpen = ref(false);
@@ -13,13 +14,7 @@ const isOpen = ref(false);
     <div id="NavBar">
       <NavBar></NavBar>
     </div>
-    
     <router-view />
-
-
-    <!-- <div id="content">
-      <Content></Content>
-      </div> -->
   </div>
 </template>
 

@@ -9,30 +9,33 @@
         <p>จังหวัดระยอง 21000</p>
       </div>
 
-      <!-- Column 2: Contact (Centered horizontally but left-aligned text) -->
+      <!-- Column 2: Contact -->
       <div class="flex flex-col items-start text-left space-y-2 mx-auto">
         <div class="flex items-center space-x-2">
-          <img src="/phone.png" alt="Logo" class="h-5 mr-2" />
+          <font-awesome-icon icon="phone" class="text-lg" />
           <span>087-074-1477</span>
-  
         </div>
         <div class="flex items-center space-x-2">
-          <img src="/envelope.png" alt="Logo" class="h-5 mr-2" />
+          <font-awesome-icon icon="envelope" class="text-lg" />
           <span>info@vertesmartsolution.com</span> 
         </div>
       </div>
 
-      <!-- Column 3: Social + Copyright -->
+      <!-- Column 3: Social -->
       <div class="flex flex-col items-end space-y-2">
         <div class="flex space-x-4">
-          <i class="fab fa-linkedin text-xl">
-            
-          </i>
-          <i class="fab fa-line text-xl"></i>
-          <i class="fab fa-facebook text-xl"></i>
-          <i class="fab fa-youtube text-xl">
-            <img src="/phone.png" alt="Logo" class="h-5 mr-2" />
-          </i>
+          <a href="https://www.linkedin.com/company/verte-smart-solution/about/?viewAsMember=true" aria-label="LinkedIn">
+            <font-awesome-icon :icon="['fab', 'linkedin']" class="text-xl hover:text-gray-400 transition" />
+          </a>
+          <a href="https://line.me/ti/p/~kpvkpv" aria-label="Line">
+            <font-awesome-icon :icon="['fab', 'line']" class="text-xl hover:text-green-400 transition" />
+          </a>
+          <a href="https://www.facebook.com/vertesmartsolution#" aria-label="Facebook">
+            <font-awesome-icon :icon="['fab', 'facebook']" class="text-xl hover:text-blue-400 transition" />
+          </a>
+          <a href="https://www.youtube.com/@vertesmartsolution6082" aria-label="YouTube">
+            <font-awesome-icon :icon="['fab', 'youtube']" class="text-xl hover:text-red-400 transition" />
+          </a>
         </div>
         <p class="text-sm mt-2">© Copyright 2025 | Verte Smart Solution</p>
       </div>
