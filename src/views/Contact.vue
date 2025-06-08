@@ -130,4 +130,5 @@ const handleReset = () => {
       </div>
     </form>
   </div>
+    <Footer/>
 </template>

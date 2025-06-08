@@ -185,6 +185,7 @@ const teamMembers = ref([
       </div>
     </div>
     <!-- Footer -->
+    <Footer/>
   </div>
 </template>
 
