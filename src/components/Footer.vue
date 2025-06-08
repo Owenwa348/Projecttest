@@ -1,5 +1,5 @@
 <template>
-  <footer class="text-white py-3  ottom-0 left-0 w-full z-50 bg-[#06202B] backdrop-blur-md shadow-md">
+  <footer class="text-white py-3  bottom-0 left-0 w-full z-50 bg-[#06202B] backdrop-blur-md shadow-md">
     <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
       
       <!-- Column 1: Address -->
@@ -39,6 +39,8 @@
         </div>
         <p class="text-sm mt-2">© Copyright 2025 | Verte Smart Solution</p>
       </div>
+
+      
 
     </div>
   </footer>

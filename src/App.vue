@@ -10,8 +10,8 @@ const isOpen = ref(false);
 </script>
 
 <template>
-  <div>
-    <div id="NavBar">
+  <div class="flex flex-col min-h-screen">
+    <div class="flex-grow" id="NavBar">
       <NavBar></NavBar>
     </div>
     <router-view />

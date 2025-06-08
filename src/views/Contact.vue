@@ -14,7 +14,7 @@ const isSubmitting = ref(false);
 // ฟังก์ชันเมื่อกดปุ่มส่ง
 const handleSubmit = async () => {
   isSubmitting.value = true;
-  
+
   try {
     // แสดงข้อมูลใน console (สามารถแทนที่ด้วย API call)
     console.log("ชื่อ:", name.value);
@@ -49,86 +49,70 @@ const handleReset = () => {
   <div class="px-6 py-20">
     <h2 class="text-3xl text-center mb-10">ติดต่อสอบถาม</h2>
 
-    <form @submit.prevent="handleSubmit" class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-lg space-y-6 border border-gray-200">
+    <form @submit.prevent="handleSubmit"
+      class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-lg space-y-6 border border-gray-200">
       <!-- ชื่อ -->
       <div>
-        <label class="block text-lg font-semibold text-gray-800 mb-2">ชื่อ - นามสกุล <span class="text-red-500">*</span></label>
-        <input
-          v-model="name"
-          type="text"
+        <label class="block text-lg font-semibold text-gray-800 mb-2">ชื่อ - นามสกุล <span
+            class="text-red-500">*</span></label>
+        <input v-model="name" type="text"
           class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ae2cf] focus:border-transparent"
-          placeholder="กรุณาระบุชื่อ - นามสกุล"
-          pattern="^[ก-a-zA-Z\s]{2,}$"
-          required
-          :disabled="isSubmitting"/>
+          placeholder="กรุณาระบุชื่อ - นามสกุล" pattern="^[ก-a-zA-Z\s]{2,}$" required :disabled="isSubmitting" />
       </div>
 
       <!-- อีเมล -->
       <div>
         <label class="block text-lg font-semibold text-gray-800 mb-2">อีเมล <span class="text-red-500">*</span></label>
-        <input
-          v-model="email"
-          type="email"
+        <input v-model="email" type="email"
           class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ae2cf] focus:border-transparent"
-          placeholder="example@email.com"
-          required
-          :disabled="isSubmitting"
-        />
+          placeholder="example@email.com" required :disabled="isSubmitting" />
       </div>
 
       <!-- เบอร์โทรศัพท์ -->
       <div>
-        <label class="block text-lg font-semibold text-gray-800 mb-2">เบอร์ติดต่อกลับ <span class="text-red-500">*</span></label>
-        <input
-          v-model="phone"
-          type="tel"
+        <label class="block text-lg font-semibold text-gray-800 mb-2">เบอร์ติดต่อกลับ <span
+            class="text-red-500">*</span></label>
+        <input v-model="phone" type="tel"
           class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ae2cf] focus:border-transparent"
-          placeholder="081-234-5678"
-          pattern="[0-9]{2,3}-?[0-9]{3}-?[0-9]{4}"
-          required
-          :disabled="isSubmitting"
-        />
+          placeholder="081-234-5678" pattern="[0-9]{2,3}-?[0-9]{3}-?[0-9]{4}" required :disabled="isSubmitting" />
       </div>
 
       <!-- ข้อความ -->
       <div>
-        <label class="block text-lg font-semibold text-gray-800 mb-2">ฝากข้อความ <span class="text-red-500">*</span></label>
-        <textarea
-          v-model="message"
-          rows="4"
+        <label class="block text-lg font-semibold text-gray-800 mb-2">ฝากข้อความ <span
+            class="text-red-500">*</span></label>
+        <textarea v-model="message" rows="4"
           class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ae2cf] focus:border-transparent resize-vertical"
-          placeholder="กรุณากรอกข้อความที่ต้องการสอบถาม..."
-          required
-          :disabled="isSubmitting"
-        ></textarea>
+          placeholder="กรุณากรอกข้อความที่ต้องการสอบถาม..." required :disabled="isSubmitting"></textarea>
       </div>
 
       <!-- ปุ่ม -->
       <div class="flex justify-end space-x-4">
-        <button
-          type="submit"
-          :disabled="isSubmitting"
-          class="bg-[#7ae2cf] text-black px-6 py-3 rounded-full hover:bg-[#62CFC0] transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
-        >
+        <button type="submit" :disabled="isSubmitting"
+          class="bg-[#7ae2cf] text-black px-6 py-3 rounded-full hover:bg-[#62CFC0] transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed font-semibold">
           <span v-if="!isSubmitting">ส่งข้อความ</span>
           <span v-else class="flex items-center">
-            <svg class="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg class="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+              </path>
             </svg>
             กำลังส่ง...
           </span>
         </button>
-        <button
-          type="button"
-          @click="handleReset"
-          :disabled="isSubmitting"
-          class="bg-red-100 text-red-700 px-6 py-2 rounded-full hover:bg-red-200 transition-all duration-300 shadow-md"
-        >
+        <button type="button" @click="handleReset" :disabled="isSubmitting"
+          class="bg-red-100 text-red-700 px-6 py-2 rounded-full hover:bg-red-200 transition-all duration-300 shadow-md">
           ลบข้อความ
         </button>
       </div>
+      
     </form>
+
+
   </div>
-    <Footer/>
+  <Footer />
+
+
 </template>
