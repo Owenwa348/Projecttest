@@ -10,20 +10,21 @@ const teamMembers = ref([
     id: 1,
     name: "คทา ประภาสะวัต",
     position: "ความปลอดภัย ความปลอดภัยกระบวนการผลิต SSHE software",
-    // expertise: "ความปลอดภัยในอุตสาหกรรม",
-    // experience: "15+ ปี",
     image: "/คทาประภาสะวัต.webp",
-    // description: "ผู้เชี่ยวชาญด้านการจัดการความปลอดภัยในอุตสาหกรรม"
+  },
+  {
+    id: 2,
+    name: "นาย ธันวา ชัยรัตนานนท์",
+    position: "Full stack developer",
+    image: "/ดร.นพดลพงษ์ศิริ.webp",
   },
 ]);
 </script>
 
 <template>
   <div class="from-gray-50 to-white min-h-screen">
-    <!-- เนื้อหาหลัก -->
     <div class="z-10 pt-20 pb-16">
-      
-      <!-- หัวข้อเกี่ยวกับเรา -->
+
       <div class="text-center mb-16">
         <h4 class="text-3xl font-bold mb-4 relative inline-block">
           เกี่ยวกับเรา
@@ -34,8 +35,6 @@ const teamMembers = ref([
       <!-- ส่วนข้อมูลบริษัท -->
       <section class="max-w-6xl mx-auto relative px-4 mb-24">
         <div class="relative flex flex-col md:flex-row items-center">
-
-          <!-- รูปภาพ -->
           <div class="w-full md:w-7/12 group relative">
             <div class="relative overflow-hidden rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105">
               <img
@@ -131,11 +130,11 @@ const teamMembers = ref([
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center mb-16 ">
-          <div
-            v-for="member in teamMembers"
+          <router-link
+              v-for="member in teamMembers"
             :key="member.id"
-            class="group relative bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-3xl max-w-sm w-full"
-          >
+            :to="{ name: 'TeamMemberProfile', params: { id: member.id } }"
+            class="group relative bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-3xl max-w-sm w-full">
             <div class="relative h-64 overflow-hidden">
               <img :src="member.image" :alt="member.name" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
               <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -161,7 +160,7 @@ const teamMembers = ref([
 
               <div class="h-1 bg-gradient-to-r from-[#7AE2CF] to-blue-400 rounded-full w-1/3 group-hover:w-full transition-all duration-500"></div>
             </div>
-          </div>
+          </router-link>
         </div>
       </section>
       <!-- Footer Placeholder -->

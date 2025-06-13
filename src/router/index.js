@@ -30,6 +30,12 @@ path: '/contact',name: 'Contact',component: Contact},
   { path: '/check-auth', component: CheckAuth },
   { path: '/login', component: Login },
   { path: '/register', component: Register },
+{
+  path: '/team/:id',
+  name: 'TeamMemberProfile',
+  component: () => import('../views/TeamMemberProfile.vue'),
+  props: true
+}
 
 ]
 

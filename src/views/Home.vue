@@ -22,10 +22,10 @@ const handleStartSurvey = () => {
     <img
       src="/industry.jpg"
       alt="background"
-      class="absolute inset-0 w-full h-full object-cover transform scale-105 transition-transform duration-20000 hover:scale-110"
+      class="absolute inset-0 w-full h-full object-cover transform scale-100 transition-transform duration-20000 hover:scale-110"
     />
     <!-- Gradient ทึบ -->
-    <div class="absolute inset-0  bg-gradient-to-br from-[#06202B]/70 via-[#06202B]/60 to-[#0A3A4A]/50 z-0"></div>
+    <div class="absolute inset-0  bg-gradient-to-br from-[#06202B]/70 via-[#06202B]/60 to-[#0A3A4A]/50 z-0 scale-100"></div>
 
     <!-- เนื้อหาหลัก -->
     <div class="z-10 flex flex-col items-center justify-center h-full text-center -translate-y-10 relative">
