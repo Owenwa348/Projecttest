@@ -24,16 +24,16 @@
       <!-- Column 3: Social -->
       <div class="flex flex-col items-end space-y-2">
         <div class="flex space-x-4">
-          <a href="https://www.linkedin.com/company/verte-smart-solution/about/?viewAsMember=true" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/company/verte-smart-solution/about/?viewAsMember=true" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
             <font-awesome-icon :icon="['fab', 'linkedin']" class="text-xl hover:text-gray-400 transition" />
           </a>
-          <a href="https://line.me/ti/p/~kpvkpv" aria-label="Line">
+          <a href="https://line.me/ti/p/~kpvkpv" aria-label="Line" target="_blank" rel="noopener noreferrer">
             <font-awesome-icon :icon="['fab', 'line']" class="text-xl hover:text-green-400 transition" />
           </a>
-          <a href="https://www.facebook.com/vertesmartsolution#" aria-label="Facebook">
+          <a href="https://www.facebook.com/vertesmartsolution#" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
             <font-awesome-icon :icon="['fab', 'facebook']" class="text-xl hover:text-blue-400 transition" />
           </a>
-          <a href="https://www.youtube.com/@vertesmartsolution6082" aria-label="YouTube">
+          <a href="https://www.youtube.com/@vertesmartsolution6082" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
             <font-awesome-icon :icon="['fab', 'youtube']" class="text-xl hover:text-red-400 transition" />
           </a>
         </div>
