@@ -32,7 +32,7 @@ const teamMembers = ref([
         </h4>
       </div>
 
-      <!-- ส่วนข้อมูลบริษัท -->
+      <!-- ข้อมูลบริษัท -->
       <section class="max-w-6xl mx-auto relative px-4 mb-24">
         <div class="relative flex flex-col md:flex-row items-center">
           <div class="w-full md:w-7/12 group relative">
@@ -120,7 +120,7 @@ const teamMembers = ref([
         </div>
       </div>
 
-      <!-- ส่วนทีมวิทยากร -->
+      <!-- วิทยากร -->
       <section class="max-w-6xl mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold mb-4 relative inline-block">

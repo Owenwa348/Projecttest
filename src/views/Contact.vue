@@ -8,15 +8,15 @@ const email = ref("");
 const phone = ref("");
 const message = ref("");
 
-// สถานะการส่งข้อมูล
+// สถานะข้อมูล
 const isSubmitting = ref(false);
 
-// ฟังก์ชันเมื่อกดปุ่มส่ง
+// ฟังก์ชันกดปุ่มส่ง
 const handleSubmit = async () => {
   isSubmitting.value = true;
   
   try {
-    // แสดงข้อมูลใน console (สามารถแทนที่ด้วย API call)
+    // แสดงข้อมูลใน console
     console.log("ชื่อ:", name.value);
     console.log("อีเมล:", email.value);
     console.log("เบอร์โทร:", phone.value);
@@ -36,7 +36,7 @@ const handleSubmit = async () => {
   }
 };
 
-// ฟังก์ชันล้างฟอร์ม
+// ลบข้อความทั้งหมด
 const handleReset = () => {
   name.value = "";
   email.value = "";

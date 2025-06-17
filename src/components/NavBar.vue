@@ -2,7 +2,7 @@
   <nav class="fixed top-0 left-0 w-full z-50 bg-[#06202B] backdrop-blur-md shadow-md">
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
-        <!-- Logo -->
+       <!-- ล็อกอิน -->
         <div class="flex items-center">
           <a href="#Home" class="flex items-center">
             <img src="/logoandname.png" alt="Logo" class="h-15 w-40 mr-2" />
@@ -10,7 +10,7 @@
           </a>
         </div>
 
-        <!-- Navigation -->
+        <!-- แถบเลือก -->
         <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 space-x-15 text-base font-medium">
           <router-link to="/" style="color: white;"
             class="text-lg text-white hover:text-white hover:bg-[#7AE2CF] px-3 py-2 rounded-md transition">หน้าแรก</router-link>
