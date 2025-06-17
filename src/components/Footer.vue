@@ -2,14 +2,14 @@
   <footer class="text-white py-3  ottom-0 left-0 w-full z-50 bg-[#06202B] backdrop-blur-md shadow-md">
     <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
       
-      <!-- Column 1: Address -->
+      <!-- ที่อยู่ -->
       <div class="flex flex-col items-start">
         <h4 class="font-bold">บริษัท เวอร์เท่ สมาร์ท โซลูชั่น จำกัด</h4>
         <p class="mt-1">เลขที่ 18/76 หมู่ที่ 1 ตำบลเนินพระ อำเภอเมืองระยอง</p>
         <p>จังหวัดระยอง 21000</p>
       </div>
 
-      <!-- Column 2: Contact -->
+      <!-- เบอร์กับอีเมล -->
       <div class="flex flex-col items-start text-left space-y-2 mx-auto">
         <div class="flex items-center space-x-2">
           <font-awesome-icon icon="phone" class="text-lg" />
@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <!-- Column 3: Social -->
+      <!-- สื่อต่างๆ -->
       <div class="flex flex-col items-end space-y-2">
         <div class="flex space-x-4">
           <a href="https://www.linkedin.com/company/verte-smart-solution/about/?viewAsMember=true" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">

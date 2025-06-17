@@ -107,7 +107,7 @@ const teamMembers = [
         phone: "087-074-1477",
         facebook: "VERTE SMART Solution ",
         linkedin:"Katha Prabhasavat",
-        youtube: ["VERTE SMART SOLUTION", "Safetylnw เซฟตี้เทพ"],
+        youtube: ["VERTE SMART SOLUTION"],
         website: "https://www.vertesmartsolution.com",
         line:"https://line.me/ti/p/~kpvkpv"
       }
