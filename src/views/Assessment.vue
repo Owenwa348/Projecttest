@@ -2,7 +2,9 @@
   <div class="min-h-screen bg-gray-50 p-6 pt-20 text-gray-800">
     <!-- Title Section -->
     <div class="mb-6 border-b pb-4">
-      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+      <div
+        class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4"
+      >
         <div>
           <h3 class="text-2xl font-bold leading-snug">
             {{ currentIndex + 1 }}. {{ questions[currentIndex].th }}
@@ -12,16 +14,25 @@
           </p>
         </div>
         <div class="text-sm font-medium text-gray-600 self-start lg:self-end">
-          คำถามที่ <span class="text-green-600 font-semibold">{{ currentIndex + 1 }}</span> จาก <span class="font-semibold">{{ questions.length }}</span>
+          คำถามที่
+          <span class="text-green-600 font-semibold">{{ currentIndex + 1 }}</span> จาก
+          <span class="font-semibold">{{ questions.length }}</span>
         </div>
       </div>
     </div>
 
     <!-- Table Header -->
-    <div class="grid grid-cols-12 bg-gray-100 font-semibold text-sm p-4 rounded-t-lg border">
-      <div class="col-span-1 text-center">ตัวเลือก</div>
+    <div
+      class="grid grid-cols-12 bg-gray-100 font-semibold text-sm p-4 rounded-t-lg border"
+    >
+      <div class="col-span-3 text-center">
+        <div class="grid grid-cols-2">
+          <div class="border-r">ปัจจุบัน</div>
+          <div>สิ่งที่คาดหวังในอนาคต</div>
+        </div>
+      </div>
       <div class="col-span-2 text-center">ระดับคะแนน</div>
-      <div class="col-span-9 text-center">ความหมายของคะแนนประเมิน</div>
+      <div class="col-span-7 text-center">ความหมายของคะแนนประเมิน</div>
     </div>
 
     <!-- Radio Choices -->
@@ -31,23 +42,35 @@
         :key="n"
         class="grid grid-cols-12 items-start gap-4 px-4 py-3 border-t"
       >
-        <!-- Radio Button -->
-        <div class="col-span-1 flex items-center justify-center pt-2">
+        <!-- ตัวเลือก: ปัจจุบัน และ อนาคต -->
+        <div class="col-span-3 grid grid-cols-2 gap-2 place-items-center">
+          <!-- ปัจจุบัน -->
           <input
             type="radio"
-            :id="'level' + n"
-            name="level"
+            :id="'current-level' + n"
+            name="current-level"
             :value="n + 1"
-            class="w-5 h-5 text-green-600 focus:ring-green-500"
+            class="w-5 h-5 text-blue-500 focus:ring-blue-400"
             v-model="answers[currentIndex].level"
+          />
+          <!-- อนาคต -->
+          <input
+            type="radio"
+            :id="'future-level' + n"
+            name="future-level"
+            :value="n + 1"
+            class="w-5 h-5 text-green-500 focus:ring-green-400"
+            v-model="answers[currentIndex].futureLevel"
           />
         </div>
 
-        <!-- Level -->
-        <div class="col-span-2 text-center pt-2 text-lg font-bold text-gray-700">{{ n + 1 }}</div>
+        <!-- คะแนน -->
+        <div class="col-span-2 text-center pt-2 text-lg font-bold text-gray-700">
+          {{ n + 1 }}
+        </div>
 
-        <!-- Description -->
-        <div class="col-span-9 space-y-1 text-sm leading-snug">
+        <!-- ความหมาย -->
+        <div class="col-span-7 space-y-1 text-sm leading-snug">
           <p class="text-gray-800 font-medium">{{ level.th }}</p>
           <p class="text-gray-500 italic">{{ level.en }}</p>
         </div>
@@ -89,23 +112,27 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { questions } from '../data/questions.js'
+import { ref } from "vue";
+import { questions } from "../data/questions.js";
 
-const currentIndex = ref(0)
-const answers = ref(questions.map(() => ({ level: null, comment: '' })))
+const currentIndex = ref(0);
+const answers = ref(questions.map(() => ({
+  level: null,
+  futureLevel: null,
+  comment: ''
+})))
 
 function goNext() {
   if (currentIndex.value < questions.length - 1) {
-    currentIndex.value++
+    currentIndex.value++;
   } else {
     // ส่งข้อมูลไป backend ได้ตรงนี้
-    console.log("ผลการประเมิน:", answers.value)
-    alert('ส่งแบบประเมินเรียบร้อยแล้ว ขอบคุณค่ะ')
+    console.log("ผลการประเมิน:", answers.value);
+    alert("ส่งแบบประเมินเรียบร้อยแล้ว ขอบคุณค่ะ");
   }
 }
 
 function goBack() {
-  if (currentIndex.value > 0) currentIndex.value--
+  if (currentIndex.value > 0) currentIndex.value--;
 }
 </script>
