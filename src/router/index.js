@@ -5,7 +5,6 @@ import Assessment from '../views/Assessment.vue'
 import AboutUs from '../views/AboutUs.vue'
 import Contact from '../views/Contact.vue'
 import Login from '../views/Login.vue'
-import CheckAuth from '../views/CheckAuth.vue'
 import Register from '../views/Register.vue'
 
 const routes = [
@@ -27,7 +26,7 @@ const routes = [
   {
 path: '/contact',name: 'Contact',component: Contact},
 
-  { path: '/check-auth', component: CheckAuth },
+ 
   { path: '/login', component: Login },
   { path: '/register', component: Register },
 {

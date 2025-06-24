@@ -2,26 +2,17 @@
 import Footer from "../components/Footer.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { isAuthenticated } from "../auth/auth"; // ฟังก์ชันที่เช็คสถานะ login
+
 
 const router = useRouter();
 const isOpen = ref(false);
 
-const handleStartSurvey = () => {
-  if (isAuthenticated()) {
-    router.push("/survey");
-  } else {
-    router.push("/check-auth");
-  }
-};
 </script>
 
 <template>
   <div class="w-full h-screen overflow-hidden">
     <!-- พื้นหลังรูป -->
-    <img
-      src="/industry.jpg"
-      alt="background"
+    <img src="/industry.jpg" alt="background"
       class="absolute inset-0 w-full h-full object-cover transform scale-100 transition-transform duration-20000 hover:scale-110"
     />
     <!-- Gradient ทึบ -->
@@ -30,34 +21,29 @@ const handleStartSurvey = () => {
     <!-- เนื้อหาหลัก -->
     <div class="z-10 flex flex-col items-center justify-center h-full text-center -translate-y-10 relative">
       <div class="max-w-4xl mx-auto px-4">
-        <h3 class="text-white text-3xl font-bold relative mb-6 animate-fade-in">
-          <span class="relative z-0">เพราะนวัตกรรมหลักคือ</span>
-          <div class="absolute -bottom- left-1/2 transform -translate-x-1/2 w-75 h-1 bg-gradient-to-r from-transparent via-[#7ae2cf] to-transparent rounded-full"></div>
+        <h3 class="text-white text-3xl font-bold mt-4 animate-slide-up relative z-10">
+          <span class="relative z-0">"Delivering Safety Expertise with Innovative Solutions"</span>
         </h3>
-
-        <div class="relative">
-          <h4 class="underline decoration-[#7ae2cf] decoration-4 underline-offset-8 text-white text-3xl font-bold mt-4 animate-slide-up relative z-10">
-            "การสร้างกระบวนการเพื่อเพิ่มประสิทธภาพการทำงาน"
-          </h4>
-        </div>
       </div>
 
       <!-- ปุ่มหลัก -->
       <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12 animate-fade-in-up">
         <!-- ปุ่มทำแบบประเมิน -->
-        <button
-          @click="handleStartSurvey"
-          style="background-color: #7ae2cf"
-          class="relative px-8 py-6 rounded-full text-xl font-semibold hover:bg-[#62CFC0] text-[#000000] transition-all duration-300 shadow-2xl transform hover:scale-105 hover:shadow-[#7ae2cf]/25 overflow-hidden group"
-        >
-          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-          <span class="relative z-10 flex items-center">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
+        <router-link to="/register" style="color: white;">
+          <button
+            style="background-color: #7ae2cf"
+            class="relative px-8 py-6 rounded-full text-xl font-semibold hover:bg-[#62CFC0] text-[#000000] transition-all duration-300 shadow-2xl transform hover:scale-105 hover:shadow-[#7ae2cf]/25 overflow-hidden group"
+          >
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            <span class="relative z-10 flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
             ทำแบบประเมินของบริษัท
           </span>
         </button>
+        </router-link>
+        
 
         <!-- ปุ่มติดต่อ -->
         <router-link to="/contact" style="color: white;">

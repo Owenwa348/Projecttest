@@ -58,7 +58,7 @@ const handleReset = () => {
           type="text"
           class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ae2cf] focus:border-transparent"
           placeholder="กรุณาระบุชื่อ - นามสกุล"
-          pattern="^[ก-a-zA-Z\s]{2,}$"
+          pattern="^[ก-ฮa-zA-Z\s]+$"
           required
           :disabled="isSubmitting"/>
       </div>

@@ -18,9 +18,11 @@
         </div>
 
         <div class="mt-6">
-          <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-            {{ step === 1 ? 'ดำเนินการต่อ' : 'เข้าสู่ระบบ' }}
-          </button>
+          <router-link to="/assessmentform">
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+              {{ step === 1 ? 'ดำเนินการต่อ' : 'เข้าสู่ระบบ' }}
+            </button>
+          </router-link>
         </div>
       </form>
     </div>
@@ -67,7 +69,7 @@ const handleLogin = () => {
       role: 'DM',
     }
     localStorage.setItem('user', JSON.stringify(user))
-    router.push('/survey')
+    router.push('/assessmentform')
   }
 }
 </script>
