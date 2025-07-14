@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50 p-6 pt-20 text-gray-800">
+  <div class="min-h-screen bg-gray-50 p-6 pt-3 text-gray-800">
     <!-- Title Section -->
     <div class="mb-6 border-b pb-4">
       <div

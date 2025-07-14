@@ -1,6 +1,7 @@
 <script setup>
 import Footer from "../components/Footer.vue";
 import { ref } from "vue";
+import NavBar from "../components/NavBar.vue";
 
 // ฟอร์มข้อมูล
 const name = ref("");
@@ -46,6 +47,7 @@ const handleReset = () => {
 </script>
 
 <template>
+  <NavBar></NavBar>
   <div class="px-6 py-20">
     <h2 class="text-3xl text-center mb-10">ติดต่อสอบถาม</h2>
 
