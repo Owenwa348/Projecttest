@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-100 p-6 md:p-20">
+  <div class="min-h-screen flex items-center justify-center bg-gray-100 p-6 md:p-5">
     <div class="w-full max-w-xl bg-white rounded-lg shadow-md p-8">
       <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">ระบุข้อมูลส่วนตัวของพนักงาน</h2>
 

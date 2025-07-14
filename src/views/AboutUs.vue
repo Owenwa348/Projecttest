@@ -1,5 +1,6 @@
 <script setup>
 import Footer from "../components/Footer.vue";
+import NavBar from "../components/NavBar.vue";
 import { ref } from "vue";
 
 const isOpen = ref(false);
@@ -22,6 +23,7 @@ const teamMembers = ref([
 </script>
 
 <template>
+  <NavBar></NavBar>
   <div class="from-gray-50 to-white min-h-screen">
     <div class="z-10 pt-20 pb-16">
 

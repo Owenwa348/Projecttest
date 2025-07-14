@@ -6,6 +6,7 @@ import AboutUs from '../views/AboutUs.vue'
 import Contact from '../views/Contact.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Dashboard from '../views/Dashboard.vue'
 
 const routes = [
   {
@@ -24,11 +25,23 @@ const routes = [
     component: AboutUs
   },
   {
-path: '/contact',name: 'Contact',component: Contact},
+  path: '/dashboard',
+  name: 'Dashboard',
+  component: Dashboard
+  },
 
- 
-  { path: '/login', component: Login },
-  { path: '/register', component: Register },
+  {
+  path: '/contact',
+  name: 'Contact',
+  component: Contact
+  },
+
+  { path: '/login', 
+    component: Login 
+  },
+  { path: '/register', 
+    component: Register 
+  },
 {
   path: '/team/:id',
   name: 'TeamMemberProfile',

@@ -11,9 +11,6 @@ const isOpen = ref(false);
 
 <template>
   <div>
-    <div id="NavBar">
-      <NavBar></NavBar>
-    </div>
     <router-view />
   </div>
 </template>
