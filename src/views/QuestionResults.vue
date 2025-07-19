@@ -1,26 +1,40 @@
+
 <script setup>
 import { ref, computed } from "vue";
 import StackedBar from "../components/StackedBar.vue";
 
-const selectedGroup = ref("DM");
+const selectedGroup = ref("All");
 const selectedType = ref("ทั้งหมด");
 const selectedTimeframe = ref("current");
 
+const isCombinedView = computed(() =>
+  selectedGroup.value === "All" && selectedType.value === "ทั้งหมด"
+);
+
+const fullLabels = [
+  "A: Comms with workforce", "B: Commitment level of w/f", "C: Rewards of good HSE",
+  "D: Who causes accidents", "E: Profit & HSE", "F: Contractor management",
+  "G: Competency & training", "H: Size of HSE Dept.", "I: Work planning",
+  "J: Worksite safety mgmt.", "K: Purpose of procedures", "L: Incident reporting",
+  "M: Hazard reporting", "N: What after accident", "O: Who checks HSE day-day",
+  "P: How HSE meetings feel", "Q: Audits & reviews", "R: Benchmarking"
+];
+
 const baseData = {
-DM: {
+  DM: {
     labels: ["DMO", "DMF", "DMA", "DMT", "DMP", "DMS", "DMM", "DME", "DMD", "DMQ",],
     v1: {
       current: [
-        [2, 5, 1, 4, 3, 5, 1, 2, 4, 4, 1, 5, 3, 2, 1, 4, 5, 3],
+        [2, 1, 1, 1, 1, 5, 1, 2, 4, 4, 1, 5, 3, 2, 1, 4, 5, 3],
         [1, 4, 2, 5, 3, 3, 4, 1, 5, 2, 4, 3, 1, 5, 2, 4, 3, 4],
-        [3, 1, 4, 2, 5, 1, 3, 4, 2, 5, 1, 4, 3, 2, 5, 1, 4, 2],
-        [5, 2, 3, 1, 4, 5, 2, 3, 1, 4, 5, 2, 3, 1, 4, 5, 2, 3],
-        [4, 3, 1, 5, 2, 4, 3, 1, 5, 2, 4, 3, 1, 5, 2, 4, 3, 1],
+        [1, 1, 4, 2, 5, 1, 3, 4, 2, 5, 1, 4, 3, 2, 5, 1, 4, 2],
+        [1, 2, 3, 1, 4, 5, 2, 3, 1, 4, 5, 2, 3, 1, 4, 5, 2, 3],
+        [1, 3, 1, 5, 2, 4, 3, 1, 5, 2, 4, 3, 1, 5, 2, 4, 3, 1],
         [2, 5, 3, 1, 4, 2, 5, 3, 1, 4, 2, 5, 3, 1, 4, 2, 5, 3],
         [1, 3, 5, 2, 4, 1, 3, 5, 2, 4, 1, 3, 5, 2, 4, 1, 3, 5],
-        [3, 4, 2, 1, 5, 3, 4, 2, 1, 5, 3, 4, 2, 1, 5, 3, 4, 2],
-        [4, 1, 5, 3, 2, 4, 1, 5, 3, 2, 4, 1, 5, 3, 2, 4, 1, 5],
-        [5, 2, 4, 1, 3, 5, 2, 4, 1, 3, 5, 2, 4, 1, 3, 5, 2, 4],
+        [1, 4, 2, 1, 5, 3, 4, 2, 1, 5, 3, 4, 2, 1, 5, 3, 4, 2],
+        [1, 1, 5, 3, 2, 4, 1, 5, 3, 2, 4, 1, 5, 3, 2, 4, 1, 5],
+        [1, 2, 4, 1, 3, 5, 2, 4, 1, 3, 5, 2, 4, 1, 3, 5, 2, 4],
       ],
       future: [
         [5, 1, 3, 2, 4, 5, 1, 3, 2, 4, 5, 1, 3, 2, 4, 5, 1, 3],
@@ -151,65 +165,102 @@ DM: {
         [2, 5, 1, 4, 3, 2, 5, 1, 4, 3, 2, 5, 1, 4, 3, 2, 5, 1]
       ]
     }
-  },
+  }
 };
-const fullLabels = [
-  "A: Comms with workforce",
-  "B: Commitment level of w/f",
-  "C: Rewards of good HSE",
-  "D: Who causes accidents",
-  "E: Profit & HSE",
-  "F: Contractor management",
-  "G: Competency & training",
-  "H: Size of HSE Dept.",
-  "I: Work planning",
-  "J: Worksite safety management",
-  "K: Purpose of procedures",
-  "L: Incident reporting",
-  "M: Hazard reporting",
-  "N: What after accident",
-  "O: Who checks HSE day-day",
-  "P: How HSE meetings feel",
-  "Q: Audits & reviews",
-  "R: Benchmarking"
-];
 
+// Function to combine all groups data
+const combineAllGroups = () => {
+  const groups = ['DM', 'SVP', 'EVP'];
+  const combinedData = {
+    labels: fullLabels,
+    v1: { current: [], future: [] },
+    v2: { current: [], future: [] }
+  };
 
-// -- แยกข้อมูลเฉพาะ V1 --
-const stackedBarV1Data = computed(() => {
-  const group = baseData[selectedGroup.value];
-  if (!group) return { labels: [], datasets: [] };
+  // Initialize arrays for each question (18 questions)
+  for (let i = 0; i < 18; i++) {
+    combinedData.v1.current[i] = [];
+    combinedData.v1.future[i] = [];
+    combinedData.v2.current[i] = [];
+    combinedData.v2.future[i] = [];
+  }
 
-  const raw = group.v1?.[selectedTimeframe.value] || [];
-  const truncated = raw.map(row => row.slice(0, fullLabels.length));
+  // Combine data from all groups
+  groups.forEach(group => {
+    const groupData = baseData[group];
+    
+    // Combine v1 data
+    groupData.v1.current.forEach((row, questionIndex) => {
+      combinedData.v1.current[questionIndex].push(...row);
+    });
+    groupData.v1.future.forEach((row, questionIndex) => {
+      combinedData.v1.future[questionIndex].push(...row);
+    });
+    
+    // Combine v2 data
+    groupData.v2.current.forEach((row, questionIndex) => {
+      combinedData.v2.current[questionIndex].push(...row);
+    });
+    groupData.v2.future.forEach((row, questionIndex) => {
+      combinedData.v2.future[questionIndex].push(...row);
+    });
+  });
 
+  return combinedData;
+};
+
+// Add the combined "All" data to baseData
+baseData.All = combineAllGroups();
+
+const stackedBarCombinedData = computed(() => {
+  const group = baseData["All"];
+  const v1 = group.v1?.[selectedTimeframe.value] || [];
+  const v2 = group.v2?.[selectedTimeframe.value] || [];
+
+const combined = v1.map((row, i) =>
+  row.map((val, j) => val + (v2[i]?.[j] || 0))
+);
   return {
     labels: fullLabels,
-    datasets: [{
-      label: `V1 (${selectedTimeframe.value === 'current' ? 'ปัจจุบัน' : 'คาดในอนาคต'})`,
-      data: truncated
-    }]
+    datasets: [
+      {
+        label: `All - V1+V2 (${selectedTimeframe.value === "current" ? "ปัจจุบัน" : "คาดในอนาคต"})`,
+        data: combined
+      }
+    ]
+  };
+});
+
+const stackedBarV1Data = computed(() => {
+  const group = baseData[selectedGroup.value];
+  const raw = group.v1?.[selectedTimeframe.value] || [];
+  return {
+    labels: fullLabels,
+    datasets: [
+      {
+        label: `${selectedGroup.value} - V1 (${selectedTimeframe.value === "current" ? "ปัจจุบัน" : "คาดในอนาคต"})`,
+        data: raw
+      }
+    ]
   };
 });
 
 const stackedBarV2Data = computed(() => {
   const group = baseData[selectedGroup.value];
-  if (!group) return { labels: [], datasets: [] };
-
   const raw = group.v2?.[selectedTimeframe.value] || [];
-  const truncated = raw.map(row => row.slice(0, fullLabels.length));
-
   return {
     labels: fullLabels,
-    datasets: [{
-      label: `V2 (${selectedTimeframe.value === 'current' ? 'ปัจจุบัน' : 'คาดในอนาคต'})`,
-      data: truncated
-    }]
+    datasets: [
+      {
+        label: `${selectedGroup.value} - V2 (${selectedTimeframe.value === "current" ? "ปัจจุบัน" : "คาดในอนาคต"})`,
+        data: raw
+      }
+    ]
   };
 });
 
-
 const groupOptions = [
+  { value: "All", label: "รวมทั้งหมด" },
   { value: "DM", label: "Direct Manager (DM)" },
   { value: "SVP", label: "Senior Vice President (SVP)" },
   { value: "EVP", label: "Executive Vice President (EVP)" }
@@ -222,48 +273,71 @@ const timeframeOptions = [
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-100 p-6">
-    <h1 class="text-4xl font-bold text-center text-gray-800 mb-10">
-      ผลประเมินตามข้อคำถาม
-    </h1>
+  <div class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-200 p-6">
+    <h1 class="text-3xl font-bold text-center mb-10 text-gray-800">ผลประเมินตามข้อคำถาม</h1>
 
     <!-- Filters -->
-    <div class="flex flex-wrap justify-center gap-4 mb-10">
-      <select v-model="selectedGroup" class="px-4 py-2 rounded-lg border shadow-sm bg-white text-gray-700">
-        <option v-for="g in groupOptions" :key="g.value" :value="g.value">{{ g.label }}</option>
-      </select>
+    <div class="flex flex-wrap justify-center gap-6 mb-10">
+      <div class="flex flex-col">
+        <label class="text-sm text-gray-600 mb-1">เลือกกลุ่ม</label>
+        <select
+          v-model="selectedGroup"
+          class="px-4 py-2 rounded-xl bg-white shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          <option v-for="option in groupOptions" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
 
-      <select v-model="selectedTimeframe" class="px-4 py-2 rounded-lg border shadow-sm bg-white text-gray-700">
-        <option v-for="t in timeframeOptions" :key="t.value" :value="t.value">{{ t.label }}</option>
-      </select>
-    </div>
-
-    <!-- V1 Chart -->
-    <div class="bg-white rounded-2xl shadow-lg border p-6 mb-10">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">กราฟ verte smart solution</h2>
-      <div style="height: 600px">
-        <StackedBar :chart-data="stackedBarV1Data" />
+      <div class="flex flex-col">
+        <label class="text-sm text-gray-600 mb-1">ช่วงเวลา</label>
+        <select
+          v-model="selectedTimeframe"
+          class="px-4 py-2 rounded-xl bg-white shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          <option v-for="option in timeframeOptions" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
       </div>
     </div>
 
-    <!-- V2 Chart -->
-    <div class="bg-white rounded-2xl shadow-lg border p-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">กราฟ verte security</h2>
-      <div style="height: 600px">
+    <!-- Combined -->
+    <div v-if="isCombinedView" class="bg-white rounded-2xl shadow-xl p-6 mb-12">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">รวมผล (V1 + V2)</h2>
+      <div class="overflow-x-auto">
+        <div class="min-w-[800px] h-[600px]">
+          <StackedBar :chart-data="stackedBarCombinedData" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Separate -->
+<div v-else>
+  <!-- V1 -->
+  <div class="bg-white rounded-2xl shadow-xl p-6 mb-12">
+    <h2 class="text-2xl font-semibold text-green-600 mb-4">
+      {{ selectedGroup }} - เวอร์ชัน V1 ({{ selectedTimeframe === "current" ? "ปัจจุบัน" : "คาดในอนาคต" }})
+    </h2>
+    <div class="overflow-x-auto">
+      <div class="min-w-[800px] h-[600px]">
+        <StackedBar :chart-data="stackedBarV1Data" />
+      </div>
+    </div>
+  </div>
+
+  <!-- V2 -->
+  <div class="bg-white rounded-2xl shadow-xl p-6">
+    <h2 class="text-2xl font-semibold text-purple-600 mb-4">
+      {{ selectedGroup }} - เวอร์ชัน V2 ({{ selectedTimeframe === "current" ? "ปัจจุบัน" : "คาดในอนาคต" }})
+    </h2>
+    <div class="overflow-x-auto">
+      <div class="min-w-[800px] h-[600px]">
         <StackedBar :chart-data="stackedBarV2Data" />
       </div>
     </div>
   </div>
+</div>
+</div>
 </template>
-
-<style scoped>
-select {
-  min-width: 180px;
-  transition: all 0.3s ease;
-}
-select:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-}
-</style>
