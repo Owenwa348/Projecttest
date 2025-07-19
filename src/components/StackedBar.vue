@@ -61,12 +61,14 @@ const formattedChartData = computed(() => {
     backgroundColor: levelColors[level],
     stack: 'stack1'
   }))
+  
 
   return {
     labels,
     datasets: grouped
   }
 })
+
 
 const chartOptions = {
   responsive: true,
