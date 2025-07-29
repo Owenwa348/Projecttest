@@ -13,7 +13,7 @@ const getCurrentView = () => {
     case 'analytics-by-unit':
       return defineAsyncComponent(() => import('./QuestionResults.vue'));
     case 'users':
-      return defineAsyncComponent(() => import('../views/UsersView.vue'));
+      return defineAsyncComponent(() => import('./Dashboard/UsersView.vue'));
     case 'settings':
       return defineAsyncComponent(() => import('../views/SettingsView.vue'));
     default:

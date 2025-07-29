@@ -4,10 +4,9 @@
       <div class="flex justify-between items-center h-16">
        <!-- ล็อกอิน -->
         <div class="flex items-center">
-          <a href="#Home" class="flex items-center">
+          <router-link to="/" class="flex items-center">
             <img src="/logoandname.png" alt="Logo" class="h-15 w-40 mr-2" />
-
-          </a>
+          </router-link>
         </div>
 
         <!-- แถบเลือก -->

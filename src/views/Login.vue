@@ -1,30 +1,87 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-    <div class="w-full max-w-md bg-white rounded-lg shadow-md p-8">
-      <h2 class="text-2xl font-bold mb-6 text-center">เข้าสู่ระบบพนักงาน</h2>
-      <form @submit.prevent="handleLogin">
-        <div class="mb-4">
-          <label class="block text-gray-700">อีเมลองค์กร</label>
-          <input v-model="email" type="email" required class="w-full px-4 py-2 border rounded-lg" />
-        </div>
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">เข้าสู่ระบบ</h1>
+        <p class="text-gray-600">
+          {{ step === 'email' ? 'กรุณากรอกอีเมลตามที่ระบุไว้' : 'Enter verification code' }}
+        </p>
+      </div>
 
-        <div v-if="step === 2" class="mb-4">
-          <label class="block text-gray-700">ยืนยันตัวเลข 2 ชั้น</label>
-          <div class="flex items-center gap-2">
-            <span class="font-mono text-xl">{{ verificationCode }}</span>
-            <button type="button" @click="generateCode" class="text-blue-500 underline text-sm">สุ่มใหม่</button>
-          </div>
-          <input v-model="userCode" placeholder="พิมพ์ตัวเลขที่เห็น" required class="w-full px-4 py-2 border rounded-lg mt-2" />
+      <!-- Email Step -->
+      <div v-if="step === 'email'" class="space-y-6">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+            อีเมลของคุณ
+          </label>
+          <input
+            id="email"
+            v-model="email"
+            type="email"
+            placeholder="Enter your email"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+            required
+          />
         </div>
+        
+        <button
+          @click="handleLogin"
+          :disabled="!email"
+          class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200"
+        >
+          ยืนยัน
+        </button>
+      </div>
 
-        <div class="mt-6">
-          <router-link to="/assessmentform">
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-              {{ step === 1 ? 'ดำเนินการต่อ' : 'เข้าสู่ระบบ' }}
-            </button>
-          </router-link>
+      <!-- OTP Step -->
+      <div v-if="step === 'otp'" class="space-y-6">
+        <div>
+          <label for="otp" class="block text-sm font-medium text-gray-700 mb-2">
+            Verification Code
+          </label>
+          <input
+            id="otp"
+            v-model="otp"
+            type="text"
+            placeholder="Enter 6-digit code"
+            maxlength="6"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-center text-2xl tracking-widest"
+            required
+          />
+          <p class="text-sm text-gray-500 mt-2">
+            We sent a code to {{ email }}
+          </p>
         </div>
-      </form>
+        
+        <div class="space-y-3">
+          <button
+            @click="handleOtp"
+            :disabled="!otp || otp.length < 6"
+            class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200"
+          >
+            Verify Code
+          </button>
+          
+          <button
+            @click="step = 'email'"
+            class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200"
+          >
+            ← Back to Email
+          </button>
+        </div>
+      </div>
+
+      <!-- Success State (if token exists) -->
+      <div v-if="token" class="text-center">
+        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">Login Successful!</h3>
+        <p class="text-gray-600">Redirecting you now...</p>
+      </div>
     </div>
   </div>
 </template>
@@ -32,44 +89,42 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
 
-const router = useRouter()
 const email = ref('')
-const step = ref(1)
-const verificationCode = ref('')
-const userCode = ref('')
+const otp = ref('')
+const token = ref('')
+const step = ref('email') // 'email' | 'otp'
+const router = useRouter()
 
-const generateCode = () => {
-  verificationCode.value = Math.floor(1000 + Math.random() * 9000).toString()
+const handleLogin = async () => {
+  try {
+    const res = await axios.post('http://localhost:3000/auth/login', { email: email.value })
+    if (res.data.redirect === 'dashboard') {
+      localStorage.setItem('token', res.data.token)
+      router.push('/dashboard')
+    } else if (res.data.redirect === 'otp') {
+      step.value = 'otp'
+    }
+  } catch (err) {
+    alert('Email ไม่ถูกต้อง หรือเกิดข้อผิดพลาด')
+    console.error(err)
+  }
 }
 
-generateCode()
-
-const handleLogin = () => {
-  if (step.value === 1) {
-
-    if (!email.value.endsWith('@yourcompany.com')) {
-      alert('โปรดใช้อีเมลองค์กรเท่านั้น')
-      return
-    }
-    step.value = 2
-  } else if (step.value === 2) {
-    if (userCode.value !== verificationCode.value) {
-      alert('รหัสยืนยันไม่ถูกต้อง')
-      generateCode()
-      return
-    }
-
-    const user = {
-      token: 'mock_token',
+const handleOtp = async () => {
+  try {
+    const res = await axios.post('http://localhost:3000/auth/verify-otp', {
       email: email.value,
-      id: 'EMP12345',
-      name: 'สมชาย ตัวอย่าง',
-      department: 'ฝ่ายนวัตกรรม',
-      role: 'DM',
+      otp: otp.value,
+    })
+    if (res.data.redirect === 'register') {
+      localStorage.setItem('token', res.data.token)
+      router.push('/register')
     }
-    localStorage.setItem('user', JSON.stringify(user))
-    router.push('/assessmentform')
+  } catch (err) {
+    alert('OTP ไม่ถูกต้อง')
+    console.error(err)
   }
 }
 </script>

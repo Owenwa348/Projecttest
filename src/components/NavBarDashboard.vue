@@ -11,7 +11,9 @@
               <span class="block w-5 h-0.5 bg-white mb-1"></span>
               <span class="block w-5 h-0.5 bg-white"></span>
             </button>
-            <img src="/logoandname.png" alt="Logo" class="h-10 w-auto drop-shadow-lg" />
+            <router-link to="/" class="flex items-center">
+              <img src="/logoandname.png" alt="Logo" class="h-10 w-auto drop-shadow-lg" />
+            </router-link>
           </div>
 
           <!-- Right: Notifications + Avatar -->

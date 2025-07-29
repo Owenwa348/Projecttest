@@ -1,4 +1,3 @@
-// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Assessment from '../views/Assessment.vue'
@@ -7,6 +6,15 @@ import Contact from '../views/Contact.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Dashboard from '../views/Dashboard.vue'
+import NotFound from '../views/NotFound.vue'
+import UserEditView from '../views/UserEditView.vue'
+import OtpVerify from '../views/OtpVerify.vue';
+import ExcelUpload from '../views/ExcelUploadView.vue'
+
+
+const isAuthenticated = () => {
+  return !!localStorage.getItem('access_token')  // หรือเช็ค cookies / session ก็ได้
+}
 
 const routes = [
   {
@@ -17,7 +25,8 @@ const routes = [
   {
     path: '/assessmentform',
     name: 'AssessmentForm',
-    component: Assessment
+    component: Assessment,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/about',
@@ -25,15 +34,15 @@ const routes = [
     component: AboutUs
   },
   {
-  path: '/dashboard',
-  name: 'Dashboard',
-  component: Dashboard
+    path: '/upload-excel',
+    name: 'UploadExcel',
+    component: ExcelUpload
   },
 
   {
-  path: '/contact',
-  name: 'Contact',
-  component: Contact
+    path: '/contact',
+    name: 'Contact',
+    component: Contact
   },
 
   { path: '/login', 
@@ -42,18 +51,48 @@ const routes = [
   { path: '/register', 
     component: Register 
   },
+
+  { path: '/dashboard', 
+    name: 'Dashboard', 
+    component: Dashboard},
+  
+  { path: '/assessmentform', 
+    name: 'AssessmentForm', 
+    component: Assessment, 
+    meta: { requiresAuth: true }},
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: NotFound
+  },
+
+  {
+    path: '/users/edit/:id',
+    name: 'UserEdit',
+    component: UserEditView
+  },
 {
   path: '/team/:id',
   name: 'TeamMemberProfile',
   component: () => import('../views/TeamMemberProfile.vue'),
   props: true
-}
+},
+  { path: '/', component: Login },
+  { path: '/otp', component: OtpVerify },
+
 
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes
+})
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !isAuthenticated()) {
+    next({ path: '/login' }) // ถ้าไม่ login กลับไป login
+  } else {
+    next()
+  }
 })
 
 export default router
