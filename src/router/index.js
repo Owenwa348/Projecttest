@@ -4,7 +4,6 @@ import Assessment from '../views/Assessment.vue'
 import AboutUs from '../views/AboutUs.vue'
 import Contact from '../views/Contact.vue'
 import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
 import Dashboard from '../views/Dashboard.vue'
 import NotFound from '../views/NotFound.vue'
 import UserEditView from '../views/UserEditView.vue'
@@ -13,7 +12,7 @@ import ExcelUpload from '../views/ExcelUploadView.vue'
 
 
 const isAuthenticated = () => {
-  return !!localStorage.getItem('access_token')  // หรือเช็ค cookies / session ก็ได้
+   return !!localStorage.getItem('access_token');
 }
 
 const routes = [
@@ -23,8 +22,8 @@ const routes = [
     component: Home
   },
   {
-    path: '/assessmentform',
-    name: 'AssessmentForm',
+    path: '/assessment',
+    name: 'Assessment',
     component: Assessment,
     meta: { requiresAuth: true } 
   },
@@ -48,18 +47,10 @@ const routes = [
   { path: '/login', 
     component: Login 
   },
-  { path: '/register', 
-    component: Register 
-  },
 
   { path: '/dashboard', 
     name: 'Dashboard', 
     component: Dashboard},
-  
-  { path: '/assessmentform', 
-    name: 'AssessmentForm', 
-    component: Assessment, 
-    meta: { requiresAuth: true }},
   {
     path: '/:catchAll(.*)',
     name: 'NotFound',

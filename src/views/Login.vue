@@ -101,8 +101,8 @@ const handleLogin = async () => {
   try {
     const res = await axios.post('http://localhost:3000/auth/login', { email: email.value })
     if (res.data.redirect === 'dashboard') {
-      localStorage.setItem('token', res.data.token)
-      router.push('/dashboard')
+      localStorage.setItem('access_token', res.data.token);
+      router.push('/dashboard');
     } else if (res.data.redirect === 'otp') {
       step.value = 'otp'
     }
@@ -118,9 +118,9 @@ const handleOtp = async () => {
       email: email.value,
       otp: otp.value,
     })
-    if (res.data.redirect === 'register') {
-      localStorage.setItem('token', res.data.token)
-      router.push('/register')
+    if (res.data.redirect === 'assessment') {
+      localStorage.setItem('access_token', res.data.token);
+      router.push('/assessment')
     }
   } catch (err) {
     alert('OTP ไม่ถูกต้อง')

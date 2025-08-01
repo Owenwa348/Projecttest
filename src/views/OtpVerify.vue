@@ -25,10 +25,10 @@ const verify = async () => {
 
   const data = await res.json();
 
-  if (data.success) {
-    localStorage.setItem('token', data.token);
-    router.push('/user');
-  } else {
+if (data.success) {
+  localStorage.setItem('access_token', data.token);
+  router.push('/assessment');
+} else {
     alert('OTP ไม่ถูกต้อง');
   }
 };
