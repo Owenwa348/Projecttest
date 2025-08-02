@@ -112,27 +112,94 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { questions } from "../data/questions.js";
+import axios from "axios";
+
+const router = useRouter();
+const email = sessionStorage.getItem("userEmail") || "unknown@example.com";
 
 const currentIndex = ref(0);
-const answers = ref(questions.map(() => ({
-  level: null,
-  futureLevel: null,
-  comment: ''
-})))
+const loading = ref(false);
 
-function goNext() {
-  if (currentIndex.value < questions.length - 1) {
-    currentIndex.value++;
-  } else {
-    // ส่งข้อมูลไป backend ได้ตรงนี้
-    console.log("ผลการประเมิน:", answers.value);
-    alert("ส่งแบบประเมินเรียบร้อยแล้ว ขอบคุณค่ะ");
+const answers = ref(
+  questions.map(() => ({
+    level: null,
+    futureLevel: null,
+    comment: "",
+  }))
+);
+
+// ✅ เช็กว่าเคยประเมินหรือยัง
+onMounted(async () => {
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    alert("กรุณาเข้าสู่ระบบใหม่อีกครั้ง");
+    router.push("/login");
+    return;
   }
-}
+
+  try {
+    const res = await axios.get(`/api/assessment/check/${email}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.data.hasSubmitted) {
+      alert("คุณได้ทำแบบประเมินไปแล้ว ไม่สามารถทำซ้ำได้");
+      router.push("/");
+    }
+  } catch (err) {
+    console.error("เกิดข้อผิดพลาดในการตรวจสอบสถานะ", err);
+  }
+});
 
 function goBack() {
   if (currentIndex.value > 0) currentIndex.value--;
 }
+
+async function goNext() {
+  const currentAnswer = answers.value[currentIndex.value];
+  if (currentAnswer.level === null || currentAnswer.futureLevel === null) {
+    alert("กรุณาเลือกทั้งคะแนนปัจจุบันและอนาคตก่อนดำเนินการต่อ");
+    return;
+  }
+
+  if (currentIndex.value < questions.length - 1) {
+    currentIndex.value++;
+  } else {
+    const token = localStorage.getItem("access_token");
+    const currentScores = answers.value.map((a) => a.level);
+    const futureScores = answers.value.map((a) => a.futureLevel);
+    const comments = answers.value.map((a) => a.comment);
+
+    loading.value = true;
+    try {
+      // ส่งคะแนนปัจจุบันพร้อม comment
+      await axios.post(
+        "/api/assessment/current",
+        { email, answers: currentScores, comments },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      // ส่งคะแนนอนาคต
+      await axios.post(
+        "/api/assessment/future",
+        { email, answers: futureScores },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      alert("ส่งแบบประเมินเรียบร้อยแล้ว ขอบคุณค่ะ");
+      router.push("/");
+    } catch (error) {
+      console.error("ส่งข้อมูลล้มเหลว", error);
+      alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+    } finally {
+      loading.value = false;
+    }
+  }
+}
 </script>
+
